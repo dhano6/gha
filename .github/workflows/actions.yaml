@@ -6,8 +6,27 @@ jobs:
   run-github-actions:
     runs-on: ubuntu-latest
     steps:
+      - name: List files
+        run: |
+          pwd
+          ls -la
+      - name: List env vars
+        run: |
+          echo $GITHUB_SHA # commit id that triggered the workflow
+          echo $GITHUB_REPOSITORY 
+          echo $GITHUB_WORKSPACE # directory
+          echo "${{ github.token }}" # token to authenticate to github
+          # git clone git@github:$GITHUB_REPOSITORY
+          # git checkout $GITHUB_SHA
+      - name: Checkout # checkout this repo with commit that triggered this workflow
+        uses: actions/checkout@v1
+      - name: List files after checkout
+        run: |
+          pwd
+          ls -la
       - name: Simple JS Action
         id: greet # use id to reference in later step
+        # action is some reusable code/program, we can use for some purpose
         # uses: actions/hello-world-javascript-action@master # user/repo@branch
         # uses: actions/hello-world-javascript-action@<commitid> # user/repo@commit
         uses: actions/hello-world-javascript-action@v1 # user/repo@version
