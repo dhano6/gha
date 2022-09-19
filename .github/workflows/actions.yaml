@@ -1,6 +1,13 @@
 name: Actions Workflow
 
-on: [push]
+# on: [push]
+on:
+  push:
+  pull_request: # pri PR workflow bude bezat na temporary branchi ktora je vysledkom mergu source a target branche e.g. feature => master
+    # bude bezat v zmysle ze pri checkoute codu sa nastavi ta temp brancha
+    # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
+    # !!! When you merge a pull request, it's as if you are doing a push to the repository branch. Therefore the push event will be triggered. There is no specific event for a merge.
+    types: [opened, closed, assigned, reopened]
 
 jobs:
   run-github-actions:
