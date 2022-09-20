@@ -1,7 +1,7 @@
 name: Filtering Events Workflow
 
 on:
-  push:
+  push: # vsetky tieto push properties (branch, paths, tags) maju medzi sebou akoby operator AND
     branches:
       - master # it will run only when pushed to master branch
       - 'feature/*' # will match any branch with feature/ like e.g. feature/featA (!!! feature/feat/a doesnt match)
