@@ -2,7 +2,8 @@ name: ENV Variables
 on: push
 env:
   WF_ENV: This var is available in all jobs
-
+  WF_ENV_FROM_SECRET: ${{ secrets.WF_ENV_FROM_SECRET }} # you need to create secret WF_ENV_FROM_SECRET in GUI
+  # ${{ secrets.GITHUB_TOKEN }} # there auto exists token that you can use for auth to github api 
 jobs:
   log-env:
     runs-on: ubuntu-latest
