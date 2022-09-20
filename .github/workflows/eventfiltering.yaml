@@ -1,0 +1,27 @@
+name: Filtering Events Workflow
+
+on:
+  push:
+    branches:
+      - master # it will run only when pushed to master branch
+      - 'feature/*' # will match any branch with feature/ like e.g. feature/featA (!!! feature/feat/a doesnt match)
+      - 'feature/**' # will match any branch with feature/ like e.g. feature/featA and also feature/feat/a
+      - '!feature/featC' # this branch will be ignored
+    tags:
+      - v1.*
+    # paths:
+    #   - '**.js' # only when you push JS file?
+    paths-ignore:
+      - 'docs/**'
+  pull_request:
+    branches:
+      - master # when merging to master
+
+jobs:
+  run-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: List files
+        run: |
+          pwd
+          ls -la

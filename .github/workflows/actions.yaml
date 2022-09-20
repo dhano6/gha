@@ -1,9 +1,12 @@
 name: Actions Workflow
 
-# on: [push]
-on:
+# on: [push] # on means when should be the workflow triggered, in this case only on push
+on: # multiple events can be specified
   # push:
-  schedule:
+  repository_dispatch: # https://docs.github.com/en/rest/repos/repos#create-a-repository-dispatch-event
+    # trigger action based on POST request to special github url
+    types: [build]
+  # schedule:
     # minimum is every 5 min, you cant ran every minute
     # - cron: "* * * * *" # min hour dayofmonth month dayofweek; check crontab guru
     # - cron: "0/5 * * * *" # every 5 minutes
@@ -18,6 +21,8 @@ jobs:
   run-github-actions:
     runs-on: ubuntu-latest
     steps:
+      - name: show payload from dispatch event
+        run: echo ${{ github.event.client_payload }}
       - name: List files
         run: |
           pwd
