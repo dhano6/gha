@@ -9,9 +9,11 @@ on:
       - '!feature/featC' # this branch will be ignored
     tags:
       - v1.*
+    # paths znamena ze LEN AK commit obsahuje dany file s danou priponou/cestou cize ak bol pridany, zmeneny inac sa nespusti NIC 
     # paths:
     #   - '**.js' # only when you push JS file?
-    paths-ignore:
+    paths-ignore: # bud paths alebo paths-ignore moze byt specifikovane, v tomto pripade paths-ignore znamena ze sa workflow spusti vzdy
+                  # okrem pripadu ked commit bude obsahovat docs ale len docs; ak bude aj ine subory aj docs tak sa to pusti
       - 'docs/**'
   pull_request:
     branches:
