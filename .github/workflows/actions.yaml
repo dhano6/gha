@@ -6,8 +6,8 @@ on:
   schedule:
     # minimum is every 5 min, you cant ran every minute
     # - cron: "* * * * *" # min hour dayofmonth month dayofweek; check crontab guru
-    - cron: "0/5 * * * *" # every 5 minutes
-    - cron: "0/6 * * * *" # every 6 minutes
+    # - cron: "0/5 * * * *" # every 5 minutes
+    # - cron: "0/6 * * * *" # every 6 minutes
   pull_request: # pri PR workflow bude bezat na temporary branchi ktora je vysledkom mergu source a target branche e.g. feature => master
     # bude bezat v zmysle ze pri checkoute codu sa nastavi ta temp brancha
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
