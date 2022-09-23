@@ -13,5 +13,5 @@ jobs:
         run: gpg --quiet --batch --yes --decrypt --passphrase="$PASSPHRASE" --output $HOME/decrypted_secret.json secret.json.gpg
         env:
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
-      - name: Print contents only TEST
-        run: cat $HOME/secret.json
+      - name: Print contents only in TEST !!!
+        run: cat $HOME/decrypted_secret.json
