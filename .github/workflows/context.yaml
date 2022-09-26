@@ -40,6 +40,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub context env vars
+        # if the step fails all other steps will not run, but if you use continue-on-error, remaining steps will run even if first will fail
+        continue-on-error: true
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"

@@ -1,0 +1,23 @@
+name: Matrix
+on: push
+
+jobs:
+  node-version:
+    strategy:
+      # max-parallel: 2 # if you want to run only 2 in parallel
+      fail-fast: true # if one of jobs fails all other will not run
+      matrix:
+        node_version: [6,8,10] # job will run 3 times (paralel) for each value in this array
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ubuntu-latest
+    # runs-on: ${{ matrix.os }} # with this we would have 3x3 jobs
+    steps:
+      - name: Log node version
+        run: node -v
+      - name: Change node version with setup-node action
+        uses: actions/setup-node@v1
+        with:
+          # node-version: 6
+          node-version: ${{ matrix.node_version }}
+      - name: Log node version
+        run: node -v

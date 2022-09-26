@@ -22,5 +22,6 @@ jobs:
           echo $RANDOM >> random.txt
           ls -la
           git add -A
-          git commit -m "Random file"
-          git push
+          # need to comment out because of unneccessary commits
+          # git commit -m "Random file"
+          # git push
