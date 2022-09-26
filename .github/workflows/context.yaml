@@ -1,0 +1,65 @@
+name: Context testing
+on: [push, pull_request]
+
+jobs:
+  functions: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: dump
+        run: |
+          echo ${{ contains( 'hello', '11' ) }}
+          echo ${{ startsWith( 'hello', 'he' ) }}
+          echo ${{ endsWith( 'hello', '1o' ) }}
+          echo ${{ format( 'Hello {0} {1} {2}', 'World', '!', '!' ) }}
+  dump_contexts_to_log:
+    runs-on: ubuntu-latest
+    # everything inside if will be treated like expression
+    # e.g. run job only if workflow triggered on push event
+    if: github.event_name == 'push'
+    steps:
+      - name: Dump GitHub context
+        id: github_context_step
+        # toJSON(github) je funkcia ktora prevedie 'github' context na Json format
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump job context
+        run: echo '${{ toJSON(job) }}'
+      - name: Dump steps context
+        # steps is useful to access e.g. outputs of other steps e.g. run: echo "${{ steps.step_id.outputs.XXX }}"
+        run: echo '${{ toJSON(steps) }}'
+      - name: Dump runner context
+        # run only if any previous step of a job fails
+        if: failure()
+        run: echo '${{ toJSON(runner) }}'
+      - name: Dump strategy context
+        # run always no matter if previous steps fail or succeed
+        if: always()
+        run: echo '${{ toJSON(strategy) }}'
+      - name: Dump matrix context
+        run: echo '${{ toJSON(matrix) }}'
+  dump_contexts_using_env_vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context env vars
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
