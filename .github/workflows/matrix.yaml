@@ -9,8 +9,17 @@ jobs:
       matrix:
         node_version: [6,8,10] # job will run 3 times (paralel) for each value in this array
         os: [macos-latest, ubuntu-latest, windows-latest]
+        exclude: 
+          - os: ubuntu-latest # job with exactly this matrix key combination will not run (9 - 1 = 8 runs of job)
+            node_version: 6
+        include: # include means: for combination of matrix keys add another matrix variable
+          - os: macos-latest
+            node_version: 6
+            is_macos_6: "true"
     runs-on: ubuntu-latest
-    # runs-on: ${{ matrix.os }} # with this we would have 3x3 jobs
+    # runs-on: ${{ matrix.os }} # with this we would have 3x3 = 9 jobs
+    env:
+      IS_MACOS_6: ${{ matrix.is_macos_6 }}
     steps:
       - name: Log node version
         run: node -v
@@ -20,4 +29,6 @@ jobs:
           # node-version: 6
           node-version: ${{ matrix.node_version }}
       - name: Log node version
-        run: node -v
+        run: |
+          node -v
+          echo $IS_MACOS_6
