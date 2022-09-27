@@ -1,6 +1,8 @@
 name: Running container in individual step
 on: push
 
+# both step container and job container will be in the same docker network
+
 jobs: 
   docker-steps:
     runs-on: ubuntu-latest
@@ -8,7 +10,7 @@ jobs:
       image: node:10.18.0-jessie
     steps:
       # This step will run in job container
-      - name: log node version
+      - name: Log node version
         run: node -v
       # This step will run in step container
       - name: Step with docker
@@ -24,4 +26,3 @@ jobs:
         with:
           entrypoint: /usr/local/bin/node
           args: -v
-          
