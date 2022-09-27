@@ -26,5 +26,5 @@ jobs:
           args: -v
       - name: Just for fun if they are in same network
         run: |
-          networks=$(docker network ls | tail -n +2 | cut -f 1 -d ' ')
-          docker inspect $networks | grep Name
+          networks=$(/usr/bin/docker network ls | tail -n +2 | cut -f 1 -d ' ')
+          /usr/bin/docker inspect $networks | grep Name
