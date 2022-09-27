@@ -1,13 +1,16 @@
 name: Service containers
 on: push
 
-# Steps in a job can communicate with all service containers that are part of the same job
+# !!! note that there is no container defined for job so step commands will NOT run in any container but in runner VM
+# !!! also you need to use port mapping to access services running in containers e.g. 3001:3000
+# !!! also you cannot refer to containers by service-name as hostname
+# !!! all of this can be overcame when container in VM is used as runner not VM directly (that container will be then part of docker network)
 
 jobs:
   node-docker:
     runs-on: ubuntu-latest
     services: # very similar syntax to docker-compose
-      app: # you can refer to this service name as a hostname in app code or other services 
+      app: # you can refer to this service name as a hostname in app code
         image: alialaa17/node-api
         ports:
           - 3001:3000
@@ -16,8 +19,8 @@ jobs:
         ports:
           - 27017:27017
     steps:
-      - name: List docker networks
-        run: docker network ls
+      # - name: List docker networks
+      #   run: docker network ls
       # this command runs in runner VM not inside container therefore we use localhost:3001
       - name: Post a user
         run: 'curl -X POST http://localhost:3001/api/user -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "dwded"}'''

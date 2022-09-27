@@ -1,6 +1,8 @@
 name: Docker container
 on: repository_dispatch
 
+# !!! when container is defined every step will run in the container not in VM directly 
+
 jobs:
   node-docker:
     runs-on: ubuntu-latest
