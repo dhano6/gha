@@ -10,7 +10,8 @@ jobs:
     steps:
       # checkout urobi checkout repa v host VM v ceste /home/runner/work/gha/gha a ta je vlastne mountnuta v job containery
       - uses: actions/checkout@v1
-      - name: workdir 
+        name: Checkout repo 
+      - name: Print workdir 
         # pwd je /__w/gha/gha
         run: | 
           pwd
