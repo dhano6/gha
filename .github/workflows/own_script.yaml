@@ -1,11 +1,13 @@
 name: Run script plus slack message
 on: push
 
+# cize sprava sa to tak ze checkout sa robi na host/runner VM a volume mountne sa to do job aj step containerov cize subory su vzdy pristupne v containeri
+
 jobs: 
   own-script:
     runs-on: ubuntu-latest
     container:
-      # container je spusteny s --workdir /__w/gha/gha a volume mount -v "/home/runner/work":"/__w"
+      # job container je spusteny s --workdir /__w/gha/gha a volume mount -v "/home/runner/work":"/__w"
       image: node:10.18.0-jessie
     steps:
       # checkout urobi checkout repa v host VM v ceste /home/runner/work/gha/gha a ta je vlastne mountnuta v job containery
@@ -13,6 +15,7 @@ jobs:
         name: Checkout repo 
       - name: Print workdir 
         # pwd je /__w/gha/gha
+        # hack needed (chmod +x)
         run: | 
           pwd
           ls -la
@@ -20,10 +23,8 @@ jobs:
       - name: Run a script
         uses: docker://node:12.14.1-alpine3.10
         with:
-          # entrypoint: ./script.sh
-          entrypoint: ls
-          # args: Some string
-          args: -la
+          entrypoint: ./script.sh
+          args: Some string
       # - name: Send a slack message
       #   uses: docker://technosophos/slack-notify
       #   env:
