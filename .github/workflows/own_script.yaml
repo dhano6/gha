@@ -15,11 +15,13 @@ jobs:
         name: Checkout repo 
       - name: Print workdir 
         # pwd je /__w/gha/gha
-        # hack needed (chmod +x)
+        # hack needed (chmod +x) in gha or on development machine: git update-index --chmod=+x script.sh
+        # the reason for hack is core.filemode=false on development machine
         run: | 
           pwd
           ls -la
-          chmod +x script.sh
+          # not needed anymore
+          # chmod +x script.sh
       - name: Run a script
         uses: docker://node:12.14.1-alpine3.10
         with:
