@@ -1,5 +1,7 @@
 name: ENV Variables
-on: push
+# on: push
+on: repository_dispatch
+
 env:
   WF_ENV: This var is available in all jobs
   WF_ENV_FROM_SECRET: ${{ secrets.WF_ENV_FROM_SECRET }} # you need to create secret WF_ENV_FROM_SECRET in GUI

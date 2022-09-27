@@ -1,8 +1,8 @@
 # encrypt file on localhost
 # gpg --symmetric --cipher-algo AES256 secret.json
 name: Decrypt file
-
-on: [ push ]
+# on: [ push ]
+on: repository_dispatch
 
 jobs:
   decrypt:

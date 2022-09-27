@@ -1,6 +1,6 @@
 name: Push random file
-on: [ push ]
-
+# on: [ push ]
+on: repository_dispatch
 
 jobs:
   push_random_file:

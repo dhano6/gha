@@ -1,6 +1,7 @@
 name: Shell Commands
 
-on: [push]
+# on: [push]
+on: repository_dispatch
 
 jobs:
   run-shell-command:
