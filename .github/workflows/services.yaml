@@ -1,5 +1,6 @@
 name: Service containers
-on: push
+# on: push
+on: repository_dispatch
 
 # !!! note that there is no container defined for job so step commands will NOT run in any container but in runner VM
 # !!! also you need to use port mapping to access services running in containers e.g. 3001:3000
