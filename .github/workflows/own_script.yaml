@@ -8,6 +8,10 @@ jobs:
       image: node:10.18.0-jessie
     steps:
       - uses: actions/checkout@v1
+      - name: test 
+        run: | 
+          pwd
+          ls -la
       - name: Run a script
         uses: docker://node:12.14.1-alpine3.10
         with:
