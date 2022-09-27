@@ -12,6 +12,7 @@ jobs:
         run: | 
           pwd
           ls -la
+          ls -la /__w
       - name: Run a script
         uses: docker://node:12.14.1-alpine3.10
         with:
