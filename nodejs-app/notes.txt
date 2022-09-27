@@ -1,0 +1,4 @@
+docker-compose build # build app image
+docker-compose start
+
+# push image to docker hub to be able to use it in gh actions

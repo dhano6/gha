@@ -1,5 +1,5 @@
 name: Docker container
-on: push
+on: repository_dispatch
 
 jobs:
   node-docker:

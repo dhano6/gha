@@ -1,0 +1,25 @@
+name: Service containers
+on: push
+
+# Steps in a job can communicate with all service containers that are part of the same job
+
+jobs:
+  node-docker:
+    runs-on: ubuntu-latest
+    services: # very similar syntax to docker-compose
+      app: # you can refer to this service name as a hostname in app code or other services 
+        image: alialaa17/node-api
+        ports:
+          - 3001:3000
+      mongo:
+        image: mongo
+        ports:
+          - 27017:27017
+    steps:
+      - name: List docker networks
+        run: docker network ls
+      # this command runs in runner VM not inside container therefore we use localhost:3001
+      - name: Post a user
+        run: 'curl -X POST http://localhost:3001/api/user -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "dwded"}'''
+      - name: Get Users
+        run: curl http://localhost:3001/api/users
