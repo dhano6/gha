@@ -24,7 +24,4 @@ jobs:
         with:
           entrypoint: /usr/local/bin/node
           args: -v
-      - name: Just for fun if they are in same network
-        run: |
-          networks=$(/usr/bin/docker network ls | tail -n +2 | cut -f 1 -d ' ')
-          /usr/bin/docker inspect $networks | grep Name
+          
